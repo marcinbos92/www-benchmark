@@ -62,8 +62,12 @@ class TimeFetcher implements DataFetcherInterface
      */
     public function fetch(): DataFetcherResultInterface
     {
-        $this->requests->process($this->input, function ($data, $info) {
-            $this->result->addCompetitorResponse(new Response(new ResponseHeaders($info), new Html($data)));
+        $this->requests->process([$this->input->getSourceUrl()], function ($data, $info) {
+            $this->result->addSourceResponse(new Response(new ResponseHeaders($info), new Html($data)));
+        });
+
+        $this->requests->process($this->input->getCompetitorUrls(), function ($data, $info) {
+                $this->result->addCompetitorResponse(new Response(new ResponseHeaders($info), new Html($data)));
         });
 
         return $this->result;

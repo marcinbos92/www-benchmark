@@ -6,14 +6,22 @@ namespace AppBundle\Services\DataFetcher;
 
 
 use AppBundle\Services\DataFetcher\Contracts\DataFetcherResultInterface;
+use AppBundle\Services\DataFetcher\Exceptions\DefinedSourceResponse;
 use AppBundle\Services\DataFetcher\Exceptions\EmptyCompetitorsResponses;
+use AppBundle\Services\DataFetcher\Exceptions\NotDefinedSourceResponse;
 
 /**
  * Class DataFetcherResult
  * @package AppBundle\Services\DataFetcher
  */
-class DataFetcherResult implements DataFetcherResultInterface
+final class DataFetcherResult implements DataFetcherResultInterface
 {
+
+    /**
+     * @var Response
+     */
+    private $sourceResponse;
+
     /**
      * @var Response[]
      */
@@ -42,5 +50,32 @@ class DataFetcherResult implements DataFetcherResultInterface
 
         return $this->competitorsResponses;
     }
+
+    /**
+     * @param Response $response
+     * @throws DefinedSourceResponse
+     */
+    public function addSourceResponse(Response $response): void
+    {
+        if ($this->sourceResponse instanceof Response) {
+            throw new DefinedSourceResponse('Source response has been set');
+        }
+
+        $this->sourceResponse = $response;
+    }
+
+    /**
+     * @return Response
+     * @throws NotDefinedSourceResponse
+     */
+    public function getSourceResponse(): Response
+    {
+        if ($this->sourceResponse instanceof Response) {
+            return $this->sourceResponse;
+        }
+
+        throw new NotDefinedSourceResponse('You have to set source response first.');
+    }
+
 
 }

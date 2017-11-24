@@ -24,6 +24,7 @@ class RequestsTest extends TestCase
         $input = new Input(new Url('http://mbosweb.pl'));
         $input->addCompetitorUrl(new Url('dsads'))->addCompetitorUrl(new Url('mbosweb.pl'));
 
-        $requests->process($input, $callback);
+        $requests->process($input->getCompetitorUrls(), $callback);
+        $requests->process([$input->getSourceUrl()], $callback);
     }
 }

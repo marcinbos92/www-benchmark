@@ -26,21 +26,17 @@ class Requests
     }
 
     /**
-     * @param Input $incommingData
+     * @param Url[] $urls
      * @param callable $callback
      */
-    public function process(Input $incommingData, Callable $callback)
+    public function process(array $urls, Callable $callback)
     {
-        //TODO add call with source url
 
         /**
          * @var $competitorUrl Url
          */
-        foreach ($incommingData->getCompetitorUrls() as $competitorUrl) {
-            $ci = curl_init($competitorUrl->getUrl());
-
-            curl_setopt_array($ci, [CURLOPT_RETURNTRANSFER => true]);
-            curl_multi_add_handle($this->handle, $ci);
+        foreach ($urls as $url) {
+            $this->initCurl($url);
         }
 
         do {
@@ -54,6 +50,14 @@ class Requests
 
             usleep(10000);
         } while ($mrc === CURLM_CALL_MULTI_PERFORM || $active);
+    }
+
+    private function initCurl(Url $url): void
+    {
+        $ci = curl_init($url->getUrl());
+
+        curl_setopt_array($ci, [CURLOPT_RETURNTRANSFER => true]);
+        curl_multi_add_handle($this->handle, $ci);
     }
 
     public function __destruct()

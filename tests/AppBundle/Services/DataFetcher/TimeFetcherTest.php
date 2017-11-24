@@ -71,6 +71,7 @@ class TimeFetcherTest extends TestCase
         $this->assertInstanceOf(DataFetcherResultInterface::class, $result);
         $this->assertInternalType('array', $result->getCompetitorsResponses());
         $this->assertSame(2, \count($result->getCompetitorsResponses()));
+        $this->assertInstanceOf(Response::class, $result->getSourceResponse());
 
         $firstResult = $result->getCompetitorsResponses()[0];
         $this->assertInstanceOf(Response::class , $firstResult);

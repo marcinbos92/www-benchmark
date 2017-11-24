@@ -27,10 +27,11 @@ class Requests
 
     /**
      * @param Input $incommingData
+     * @param callable $callback
      */
-    public function process(Input $incommingData)
+    public function process(Input $incommingData, Callable $callback)
     {
-        //TODO add process for source url
+        //TODO add call with source url
 
         /**
          * @var $competitorUrl Url
@@ -46,9 +47,7 @@ class Requests
             $mrc = curl_multi_exec($this->handle, $active);
 
             if ($state = curl_multi_info_read($this->handle))  {
-                //print_r($state);
                 $info = curl_getinfo($state['handle']);
-                //print_r($info);
                 $callback(curl_multi_getcontent($state['handle']), $info);
                 curl_multi_remove_handle($this->handle, $state['handle']);
             }

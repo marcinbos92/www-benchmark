@@ -32,6 +32,8 @@ class Input
     public function addCompetitorUrl(Url $url): Input
     {
         $this->competitorUrls[] = $url;
+
+        return $this;
     }
 
     /**

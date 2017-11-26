@@ -12,19 +12,29 @@ use PHPUnit\Framework\TestCase;
 
 class RequestsTest extends TestCase
 {
+
+    private $result;
+
     public function testRequestsProcessing(): void
     {
         $requests = new Requests();
 
         $callback = function($data, $info)
         {
-//            var_dump($data, $info);
+            $this->result[] = $info;
         };
 
         $input = new Input(new Url('http://mbosweb.pl'));
         $input->addCompetitorUrl(new Url('dsads'))->addCompetitorUrl(new Url('mbosweb.pl'));
 
         $requests->process($input->getCompetitorUrls(), $callback);
+        $this->assertInternalType('array', $this->result);
+        $this->assertSame(2, \count($this->result));
+
+        unset($this->result);
+
         $requests->process([$input->getSourceUrl()], $callback);
+        $this->assertInternalType('array', $this->result);
+        $this->assertSame(1, \count($this->result));
     }
 }

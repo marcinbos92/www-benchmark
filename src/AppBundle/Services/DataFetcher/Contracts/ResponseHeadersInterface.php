@@ -26,4 +26,6 @@ interface ResponseHeadersInterface extends ResponseTimesInterface
      * @return int
      */
     public function getHeaderSize(): int;
+
+    public function getUrl(): string;
 }

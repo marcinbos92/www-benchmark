@@ -77,5 +77,4 @@ final class DataFetcherResult implements DataFetcherResultInterface
         throw new NotDefinedSourceResponse('You have to set source response first.');
     }
 
-
 }

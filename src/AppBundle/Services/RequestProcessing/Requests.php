@@ -47,7 +47,6 @@ class Requests
                 $callback(curl_multi_getcontent($state['handle']), $info);
                 curl_multi_remove_handle($this->handle, $state['handle']);
             }
-
             usleep(10000);
         } while ($mrc === CURLM_CALL_MULTI_PERFORM || $active);
     }

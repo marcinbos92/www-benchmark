@@ -33,3 +33,10 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
+
+    AppBundle\Command\AppCompareCommand:
+        class: AppBundle\Command\AppCompareCommand
+        arguments: ["@logger"]
+        tags:
+            - { name: monolog.logger, channel: acme }
+        public: true

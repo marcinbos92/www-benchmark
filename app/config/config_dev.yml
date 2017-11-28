@@ -12,7 +12,12 @@ web_profiler:
     intercept_redirects: false
 
 monolog:
+    channels: ['file']
     handlers:
+        file_log:
+            type: stream
+            path: "%kernel.logs_dir%/log.txt"
+            channels: ['!event', '!doctrine', '!console']
         main:
             type: stream
             path: '%kernel.logs_dir%/%kernel.environment%.log'
@@ -37,5 +42,5 @@ monolog:
         #    type: chromephp
         #    level: info
 
-#swiftmailer:
-#    delivery_addresses: ['me@example.com']
+swiftmailer:
+    delivery_addresses: ['me@example.com']

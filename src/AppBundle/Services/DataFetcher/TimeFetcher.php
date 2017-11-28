@@ -38,19 +38,18 @@ class TimeFetcher implements DataFetcherInterface
      * TimeFetcher constructor.
      *
      * @param Requests $requests
-     * @param string $src_url
-     * @param array $url_competitors
+     * @param string $srcUrl
+     * @param array $urlCompetitors
      */
-    public function __construct(Requests $requests, string $src_url, array $url_competitors)
+    public function __construct(Requests $requests, string $srcUrl, array $urlCompetitors)
     {
         //TODO move to factory maybe... [S]olid
-        $input = new Input(new Url($src_url));
+        $input = new Input(new Url($srcUrl));
 
-        array_map(function ($url) use ($input) {
-            $input->addCompetitorUrl(new Url($url));
-        }, $url_competitors);
+        foreach ($urlCompetitors as $urlCompetitor) {
+            $input->addCompetitorUrl(new Url($urlCompetitor));
+        }
 
-        //TODO inject
         $this->result = new DataFetcherResult();
         $this->input = $input;
         $this->requests = $requests;
@@ -61,10 +60,11 @@ class TimeFetcher implements DataFetcherInterface
      */
     public function fetch(): DataFetcherResultInterface
     {
+        //To add HTML content to response: new Html($data)
+
         $this->requests->process([$this->input->getSourceUrl()], function ($data, $info) {
             $this->result->addSourceResponse(new Response(new ResponseHeaders($info), new Html('')));
         });
-
 
         $this->requests->process($this->input->getCompetitorUrls(), function ($data, $info) {
                 $this->result->addCompetitorResponse(new Response(new ResponseHeaders($info), new Html('')));

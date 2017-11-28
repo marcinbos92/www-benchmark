@@ -113,6 +113,10 @@ final class ResponseHeaders implements ResponseHeadersInterface
         return array_key_exists('total_time', $this->headers);
     }
 
+    /**
+     * @return string
+     * @throws HeaderKeyNotFound
+     */
     public function getUrl(): string
     {
         if ($this->hasUrl()) {
@@ -122,6 +126,9 @@ final class ResponseHeaders implements ResponseHeadersInterface
         throw new HeaderKeyNotFound(printf('Provided key: url does not exist'));
     }
 
+    /**
+     * @return bool
+     */
     public function hasUrl(): bool
     {
         return array_key_exists('url', $this->headers);

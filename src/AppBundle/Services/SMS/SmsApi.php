@@ -7,8 +7,15 @@ namespace AppBundle\Services\SMS;
 
 use AppBundle\Services\SMS\Contracts\SmsApiInterface;
 
+/**
+ * Class SmsApi
+ * @package AppBundle\Services\SMS
+ */
 class SmsApi implements SmsApiInterface
 {
+    /**
+     * @param array $data
+     */
     public function sendMessage(array $data): void
     {
         /**

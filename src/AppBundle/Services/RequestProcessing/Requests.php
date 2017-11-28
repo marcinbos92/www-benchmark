@@ -15,6 +15,9 @@ use AppBundle\Services\Schema\Url;
 class Requests
 {
 
+    /**
+     * @var resource
+     */
     private $handle;
 
     /**
@@ -51,6 +54,9 @@ class Requests
         } while ($mrc === CURLM_CALL_MULTI_PERFORM || $active);
     }
 
+    /**
+     * @param Url $url
+     */
     private function initCurl(Url $url): void
     {
         $ci = curl_init($url->getUrl());

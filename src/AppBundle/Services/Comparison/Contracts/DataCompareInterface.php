@@ -11,8 +11,9 @@ namespace AppBundle\Services\Comparison\Contracts;
  */
 interface DataCompareInterface
 {
+
     /**
-     * @return mixed
+     * @return ComparisonResponseInterface
      */
-    public function compare();
+    public function compare(): ComparisonResponseInterface;
 }

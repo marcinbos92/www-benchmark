@@ -45,7 +45,7 @@ class SendMailAction implements ActionInterface
         $message->setBody($response->getArrayResponse()['message']);
 
         //For testing
-        var_dump('EMAIL WAS SENT');
+        var_dump('EMAIL WAS SENT at ' . date('Y-m-d H:i:s'));
 
         if (!$this->mailer->send($message)) {
             //TODO: Too general...

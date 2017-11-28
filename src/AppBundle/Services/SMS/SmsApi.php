@@ -14,7 +14,7 @@ class SmsApi implements SmsApiInterface
         /**
          * Dummy class for sending SMS message
          */
-        var_dump("SMS WAS SENT");
+        var_dump("SMS WAS SENT at " . date('Y-m-d H:i:s'));
     }
 
 }

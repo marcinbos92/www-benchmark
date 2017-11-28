@@ -63,11 +63,11 @@ class TimeFetcher implements DataFetcherInterface
         //To add HTML content to response: new Html($data)
 
         $this->requests->process([$this->input->getSourceUrl()], function ($data, $info) {
-            $this->result->addSourceResponse(new Response(new ResponseHeaders($info), new Html('')));
+            $this->result->addSourceResponse(new Response(new ResponseHeaders($info), new Html('<html></html>')));
         });
 
         $this->requests->process($this->input->getCompetitorUrls(), function ($data, $info) {
-                $this->result->addCompetitorResponse(new Response(new ResponseHeaders($info), new Html('')));
+                $this->result->addCompetitorResponse(new Response(new ResponseHeaders($info), new Html('<html></html>')));
         });
 
         return $this->result;

@@ -45,8 +45,7 @@ class TimeFetcherTest extends TestCase
 
         $this->timeFetcher = new TimeFetcher(Mockery::mock(Requests::class),
             $this->src_url,
-            $this->url_c1,
-            $this->url_c2
+            [$this->url_c1, $this->url_c2]
         );
     }
 
@@ -62,8 +61,7 @@ class TimeFetcherTest extends TestCase
         $timeFetcher = new TimeFetcher(
             $requests,
             $this->src_url,
-            $this->url_c1,
-            $this->url_c2
+            [$this->url_c1, $this->url_c2]
         );
 
         $result = $timeFetcher->fetch();
